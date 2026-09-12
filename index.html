@@ -449,39 +449,25 @@
 
     <div id="formShell">
       <h3>Vamos começar</h3>
-      <p class="step-sub" id="stepSub">Passo 1 de 2 — só o essencial</p>
-      <div class="progress"><div class="bar"><span id="progressBar" style="width:50%"></span></div></div>
+      <p class="step-sub" id="stepSub">Leva menos de um minuto</p>
 
       <form id="leadForm" novalidate>
-        <div class="form-step active" data-step="1">
-          <div class="field">
-            <label for="nome">Seu nome completo</label>
-            <input type="text" id="nome" name="nome" autocomplete="name" required>
-          </div>
-          <div class="field">
-            <label for="whatsapp">WhatsApp com DDD</label>
-            <input type="tel" id="whatsapp" name="whatsapp" placeholder="(11) 91234-5678" autocomplete="tel" required>
-          </div>
-          <div class="form-actions">
-            <button type="button" class="btn btn-primary" id="toStep2">Continuar</button>
-          </div>
+        <div class="field">
+          <label for="nome">Seu nome completo</label>
+          <input type="text" id="nome" name="nome" autocomplete="name" required>
         </div>
-
-        <div class="form-step" data-step="2">
-          <div class="field">
-            <label for="email">Seu e-mail</label>
-            <input type="email" id="email" name="email" autocomplete="email" required>
-          </div>
-          <div class="field">
-            <label for="cidade">Cidade e estado</label>
-            <input type="text" id="cidade" name="cidade" placeholder="Ex: Novo Hamburgo, RS">
-          </div>
-          <div class="form-actions">
-            <button type="button" class="btn btn-ghost" id="toStep1">Voltar</button>
-            <button type="submit" class="btn btn-primary" id="submitBtn">Enviar cadastro</button>
-          </div>
-          <div class="form-msg" id="formMsg"></div>
+        <div class="field">
+          <label for="whatsapp">WhatsApp com DDD</label>
+          <input type="tel" id="whatsapp" name="whatsapp" placeholder="(11) 91234-5678" autocomplete="tel" required>
         </div>
+        <div class="field">
+          <label for="cidade">Cidade e estado</label>
+          <input type="text" id="cidade" name="cidade" placeholder="Ex: Novo Hamburgo, RS">
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary" id="submitBtn">Enviar cadastro</button>
+        </div>
+        <div class="form-msg" id="formMsg"></div>
       </form>
     </div>
 
@@ -513,10 +499,6 @@
   var formShell = document.getElementById('formShell');
   var successShell = document.getElementById('successShell');
   var form = document.getElementById('leadForm');
-  var step1 = form.querySelector('[data-step="1"]');
-  var step2 = form.querySelector('[data-step="2"]');
-  var progressBar = document.getElementById('progressBar');
-  var stepSub = document.getElementById('stepSub');
   var formMsg = document.getElementById('formMsg');
   var submitBtn = document.getElementById('submitBtn');
 
@@ -527,35 +509,19 @@
   closeBtn.addEventListener('click', closeModal);
   overlay.addEventListener('click', function(e){ if(e.target === overlay) closeModal(); });
 
-  document.getElementById('toStep2').addEventListener('click', function(){
-    var nome = form.nome.value.trim();
-    var wa = form.whatsapp.value.trim();
-    if(!nome || !wa){
-      if(!nome) form.nome.focus();
-      else form.whatsapp.focus();
-      return;
-    }
-    step1.classList.remove('active');
-    step2.classList.add('active');
-    progressBar.style.width = '100%';
-    stepSub.textContent = 'Passo 2 de 2 — quase lá';
-  });
-
-  document.getElementById('toStep1').addEventListener('click', function(){
-    step2.classList.remove('active');
-    step1.classList.add('active');
-    progressBar.style.width = '50%';
-    stepSub.textContent = 'Passo 1 de 2 — só o essencial';
-  });
-
   form.addEventListener('submit', function(e){
     e.preventDefault();
     formMsg.textContent = '';
 
+    var nome = form.nome.value.trim();
+    var whatsapp = form.whatsapp.value.trim();
+
+    if(!nome){ form.nome.focus(); return; }
+    if(!whatsapp){ form.whatsapp.focus(); return; }
+
     var payload = {
-      nome: form.nome.value.trim(),
-      whatsapp: form.whatsapp.value.trim(),
-      email: form.email.value.trim(),
+      nome: nome,
+      whatsapp: whatsapp,
       cidade: form.cidade.value.trim(),
       origem: 'site',
       utm_source: utm.utm_source,
@@ -563,12 +529,6 @@
       utm_campaign: utm.utm_campaign,
       pagina: window.location.href
     };
-
-    if(!payload.email){
-      formMsg.textContent = 'Preencha seu e-mail para continuar.';
-      form.email.focus();
-      return;
-    }
 
     submitBtn.disabled = true;
     submitBtn.textContent = 'Enviando...';

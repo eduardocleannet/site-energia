@@ -50,10 +50,6 @@ function clean(str, max) {
   return str.trim().slice(0, max || 300);
 }
 
-function isValidEmail(email) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-}
-
 exports.handler = async function (event) {
   // O navegador manda uma requisição OPTIONS antes do POST real, pra checar CORS
   if (event.httpMethod === 'OPTIONS') {
@@ -73,11 +69,10 @@ exports.handler = async function (event) {
 
   const nome = clean(data.nome, 120);
   const telefone = clean(data.whatsapp, 30); // o formulário chama de "whatsapp", o CRM chama de "telefone"
-  const email = clean(data.email, 150);
   const cidade = clean(data.cidade, 120);
 
-  if (!nome || !telefone || !email || !isValidEmail(email)) {
-    return { statusCode: 400, headers: CORS_HEADERS, body: JSON.stringify({ error: 'Dados obrigatórios faltando ou inválidos' }) };
+  if (!nome || !telefone) {
+    return { statusCode: 400, headers: CORS_HEADERS, body: JSON.stringify({ error: 'Dados obrigatórios faltando' }) };
   }
 
   // Monta um texto de origem parecido com o que você já usa no campo "Origem"
@@ -91,14 +86,12 @@ exports.handler = async function (event) {
   const agora = today();
 
   // Estes são exatamente os mesmos campos que window.salvarNovoLead grava
-  // no CRM quando você cadastra um lead manualmente — email e cidade são os
-  // únicos dois campos extras (o CRM não tem essas colunas hoje, mas gravá-las
-  // não quebra nada; elas só não aparecem na tela até o CRM ser atualizado
-  // para mostrá-las).
+  // no CRM quando você cadastra um lead manualmente — cidade é o único campo
+  // extra (o CRM não tem essa coluna hoje, mas gravá-la não quebra nada; ela
+  // só não aparece na tela até o CRM ser atualizado para mostrá-la).
   const lead = {
     nome,
     telefone,
-    email,
     cidade,
     origem,
     fornecedor: null,
