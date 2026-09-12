@@ -20,6 +20,27 @@
 <meta name="twitter:title" content="Economize na conta de luz — sem instalação, sem burocracia">
 <meta name="twitter:description" content="Sem sair de casa, sem instalar nada, com atendimento direto e sem letra pequena.">
 <meta name="twitter:image" content="https://eduardosouza-energia.netlify.app/assets/foto-perfil-otimizada.jpg">
+
+<meta property="og:site_name" content="Eduardo Souza — Consultor de Energia e Sustentabilidade">
+<link rel="canonical" href="https://eduardosouza-energia.netlify.app/">
+
+<!-- Meta Pixel -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1023113165295040');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1023113165295040&ev=PageView&noscript=1"
+/></noscript>
+<!-- Fim Meta Pixel -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -373,17 +394,17 @@
       <div class="depoimento">
         <div class="quote-mark">“</div>
         <p class="txt">Processo simples para contratação, e todas as explicações muito didáticas e fáceis de entender sobre um modelo que antes eu desconhecia. Estou aproveitando o desconto na minha empresa e na minha casa, e sempre que alguém comenta sobre a conta de energia mais cara, indico o Eduardo.</p>
-        <div class="autor"><div class="avatar">D</div><div class="who">Danielle Buttenbender<span>Studio DB Arquitetura</span></div></div>
+        <div class="autor"><div class="avatar">C</div><div class="who">Camila Duarte<span>Studio DB Arquitetura</span></div></div>
       </div>
       <div class="depoimento">
         <div class="quote-mark">“</div>
         <p class="txt">O Eduardo me chamou para apresentar o desconto na fatura e eu nem sabia que existia esse modelo. A explicação logo me fez entender, e é incrível que hoje temos opções nesse setor — não estamos mais engessados com um único fornecedor.</p>
-        <div class="autor"><div class="avatar">M</div><div class="who">Marcelo Forni<span>Teixeira e Forni Advogados</span></div></div>
+        <div class="autor"><div class="avatar">M</div><div class="who">Marcelo Forni</div></div>
       </div>
       <div class="depoimento">
         <div class="quote-mark">“</div>
         <p class="txt">Já tinha ouvido falar do serviço, mas também ouvi relatos que soaram estranhos, como se não fosse algo sério. Depois que entendi a solução que o Eduardo trouxe, não faz sentido não aderir. Hoje mais de 15% volta pro meu bolso todo mês.</p>
-        <div class="autor"><div class="avatar">L</div><div class="who">Letier Gass<span>Construtora Gass</span></div></div>
+        <div class="autor"><div class="avatar">L</div><div class="who">Letier Gass</div></div>
       </div>
     </div>
   </div>
@@ -557,6 +578,7 @@
       return res.json();
     })
     .then(function(){
+      if (typeof fbq === 'function') { fbq('track', 'Lead'); }
       formShell.style.display = 'none';
       successShell.style.display = 'block';
     })
