@@ -50,6 +50,13 @@ function clean(str, max) {
   return str.trim().slice(0, max || 300);
 }
 
+// Número vindo do simulador do site (ou null, se não veio / for inválido)
+function num(v, min, max) {
+  const n = typeof v === 'number' ? v : parseFloat(String(v || '').replace(',', '.'));
+  if (!isFinite(n) || n < min || n > max) return null;
+  return Math.round(n * 100) / 100;
+}
+
 exports.handler = async function (event) {
   // O navegador manda uma requisição OPTIONS antes do POST real, pra checar CORS
   if (event.httpMethod === 'OPTIONS') {
@@ -79,7 +86,13 @@ exports.handler = async function (event) {
   // do Novo Lead manual, incluindo de qual campanha/anúncio a pessoa veio.
   const utmSource = clean(data.utm_source, 60);
   const utmCampaign = clean(data.utm_campaign, 60);
-  let origem = 'Site';
+  // Dados do simulador (quando a pessoa simulou antes de se cadastrar)
+  const kwhMedio = num(data.consumo_kwh, 30, 1000000);
+  const economiaAnual = num(data.economia_estimada_12m, 1, 100000000);
+  const percentualMedio = num(data.percentual_medio, 1, 100);
+  const veioDoSimulador = kwhMedio !== null && economiaAnual !== null;
+
+  let origem = veioDoSimulador ? 'Site — simulador' : 'Site';
   if (utmSource) origem += ' — ' + utmSource;
   if (utmCampaign) origem += ' (' + utmCampaign + ')';
 
@@ -103,13 +116,20 @@ exports.handler = async function (event) {
     temOutroDecisor: null,
     motivoParado: null,
     followUpCount: 0,
-    economiaAnual: null,
-    percentualMedio: null,
-    kwhMedio: null,
+    economiaAnual,
+    percentualMedio,
+    kwhMedio,
     perdido: false,
     indicacaoSolicitada: false,
     entregue: false,
-    historico: [{ data: agora, texto: 'Lead criado pelo site' }],
+    historico: [{
+      data: agora,
+      texto: veioDoSimulador
+        ? 'Lead criado pelo site após simular: ' + kwhMedio + ' kWh/mês, economia estimada de R$ ' +
+          economiaAnual.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) +
+          ' nos últimos 12 meses (estimativa do site, confirmar na proposta oficial)'
+        : 'Lead criado pelo site',
+    }],
   };
 
   try {

@@ -278,6 +278,42 @@ src="https://www.facebook.com/tr?id=1031571483232585&ev=PageView&noscript=1"
     .cta-final{ flex-direction:column; text-align:left; padding:42px 28px; }
     header .btn span{ display:none; }
   }
+
+  /* ---------- SIMULADOR ---------- */
+  #simulador{ background:var(--white); }
+  .sim{ display:grid; grid-template-columns:1fr 1.1fr; gap:0; border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; }
+  .sim-in{ padding:36px 34px; background:var(--mint); }
+  .sim-in h3{ font-size:22px; margin-bottom:6px; }
+  .sim-in .hint{ color:var(--ink-soft); font-size:14.5px; margin:0 0 22px; }
+  .sim-field{ margin-bottom:18px; }
+  .sim-field label{ display:block; font-weight:700; font-size:14.5px; color:var(--deep); margin-bottom:7px; }
+  .sim-field small{ display:block; color:var(--ink-soft); font-size:13px; margin-top:6px; line-height:1.45; }
+  .sim-field input, .sim-field select{ width:100%; font:inherit; font-size:17px; padding:13px 14px; border:1.5px solid var(--line); border-radius:var(--radius-sm); background:var(--white); color:var(--ink); }
+  .sim-field input:focus, .sim-field select:focus{ outline:none; border-color:var(--deep); box-shadow:0 0 0 3px rgba(14,59,54,.12); }
+  .sim-mode{ display:flex; gap:6px; margin-bottom:18px; background:var(--white); border:1.5px solid var(--line); border-radius:var(--radius-sm); padding:4px; }
+  .sim-mode button{ flex:1; border:0; background:transparent; font:inherit; font-weight:700; font-size:14px; color:var(--ink-soft); padding:9px 8px; border-radius:9px; cursor:pointer; }
+  .sim-mode button[aria-pressed="true"]{ background:var(--deep); color:var(--white); }
+  .sim-mode button:focus-visible{ outline:2px solid var(--sun); outline-offset:2px; }
+  .sim-out{ padding:36px 34px; background:var(--deep); color:var(--white); display:flex; flex-direction:column; }
+  .sim-out .empty{ color:rgba(255,255,255,.7); font-size:16px; margin:auto 0; max-width:24em; }
+  .sim-out .lead{ color:rgba(255,255,255,.75); font-size:15px; margin:0 0 6px; }
+  .sim-total{ font-family:'Sora',sans-serif; font-weight:800; font-size:clamp(40px,5.4vw,60px); line-height:1; color:var(--sun); letter-spacing:-.02em; }
+  .sim-sub{ color:rgba(255,255,255,.85); font-size:16px; margin:10px 0 22px; }
+  .sim-rows{ border-top:1px solid rgba(255,255,255,.14); margin-bottom:20px; }
+  .sim-row{ display:grid; grid-template-columns:auto 1fr auto; gap:12px; align-items:center; padding:11px 0; border-bottom:1px solid rgba(255,255,255,.1); font-size:15px; }
+  .sim-row .flag{ width:12px; height:28px; border-radius:3px; }
+  .sim-row .m{ color:rgba(255,255,255,.7); }
+  .sim-row .v{ font-weight:700; }
+  .sim-now{ background:rgba(255,255,255,.08); border-radius:var(--radius-sm); padding:12px 14px; font-size:15px; margin-bottom:20px; }
+  .sim-note{ color:rgba(255,255,255,.6); font-size:12.5px; line-height:1.5; margin:0 0 20px; }
+  .sim-actions{ display:flex; flex-direction:column; gap:10px; margin-top:auto; }
+  .sim-actions .btn{ justify-content:center; width:100%; }
+  .btn-wa{ background:transparent; color:var(--white); border:1.5px solid rgba(255,255,255,.4); }
+  .btn-wa:hover{ background:rgba(255,255,255,.08); }
+  .sim-msg{ color:#FFD79A; font-size:15px; margin:auto 0; }
+  .sim-in, .sim-out{ min-width:0; }
+  .sim-row > span:nth-child(2){ min-width:0; }
+  @media (max-width:900px){ .sim{ grid-template-columns:minmax(0,1fr); } .sim-in, .sim-out{ padding:28px 22px; } }
 </style>
 </head>
 <body>
@@ -303,7 +339,7 @@ src="https://www.facebook.com/tr?id=1031571483232585&ev=PageView&noscript=1"
       <p class="sub">Você continua com a sua concessionária, do mesmo jeito de sempre. A diferença aparece na cobrança — com um desconto, sem burocracia e com alguém de verdade te acompanhando em cada etapa.</p>
       <div class="ctas">
         <button class="btn btn-primary" data-open-form>Quero economizar</button>
-        <a class="btn btn-ghost" href="#como-funciona">Ver como funciona</a>
+        <a class="btn btn-ghost" href="#simulador">Simular minha economia</a>
       </div>
       <div class="trust-row">
         <div class="item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Sem instalação</div>
@@ -324,6 +360,47 @@ src="https://www.facebook.com/tr?id=1031571483232585&ev=PageView&noscript=1"
     </div>
   </div>
 </section>
+<section id="simulador">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Quanto você teria economizado no último ano?</h2>
+      <p style="color:var(--ink-soft);margin-top:12px;">O desconto acompanha a bandeira tarifária: quanto mais cara a bandeira, maior a diferença. A conta abaixo usa as bandeiras reais dos últimos 12 meses.</p>
+    </div>
+    <div class="sim">
+      <form class="sim-in" id="simForm" novalidate>
+        <h3>Simule em 10 segundos</h3>
+        <p class="hint">Pegue a sua conta de luz mais recente.</p>
+        <div class="sim-field">
+          <label for="simConc">Sua concessionária</label>
+          <select id="simConc">
+            <option value="rge">RGE</option>
+            <option value="ceee">CEEE Equatorial</option>
+            <option value="outra">Outra</option>
+          </select>
+        </div>
+        <div class="sim-mode" role="group" aria-label="Como você quer informar o consumo">
+          <button type="button" data-mode="kwh" aria-pressed="true">Sei o consumo (kWh)</button>
+          <button type="button" data-mode="reais" aria-pressed="false">Sei o valor (R$)</button>
+        </div>
+        <div class="sim-field" id="fieldKwh">
+          <label for="simKwh">Consumo médio por mês, em kWh</label>
+          <input id="simKwh" type="number" inputmode="numeric" min="30" step="1" placeholder="Ex: 250">
+          <small>Fica na conta, no histórico de consumo. Se puder, use a média dos últimos meses.</small>
+        </div>
+        <div class="sim-field" id="fieldReais" hidden>
+          <label for="simReais">Valor médio da conta por mês, em R$</label>
+          <input id="simReais" type="number" inputmode="decimal" min="30" step="0.01" placeholder="Ex: 320">
+          <small>Pelo valor, a estimativa fica aproximada, porque a conta inclui iluminação pública e outras taxas.</small>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">Calcular minha economia</button>
+      </form>
+      <div class="sim-out" id="simOut" aria-live="polite">
+        <p class="empty">Informe o seu consumo ao lado para ver quanto você teria economizado, mês a mês, de acordo com a bandeira de cada mês.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 
 <section id="como-funciona">
   <div class="wrap">
@@ -562,7 +639,10 @@ src="https://www.facebook.com/tr?id=1031571483232585&ev=PageView&noscript=1"
       utm_source: utm.utm_source,
       utm_medium: utm.utm_medium,
       utm_campaign: utm.utm_campaign,
-      pagina: window.location.href
+      pagina: window.location.href,
+      consumo_kwh: (window.__sim && window.__sim.kwh) || '',
+      economia_estimada_12m: (window.__sim && window.__sim.total) || '',
+      percentual_medio: (window.__sim && window.__sim.pct) || ''
     };
 
     submitBtn.disabled = true;
@@ -591,5 +671,104 @@ src="https://www.facebook.com/tr?id=1031571483232585&ev=PageView&noscript=1"
 })();
 </script>
 
+
+<script>
+/* ===== SIMULADOR =====
+   ATUALIZE TODO MÊS: copie os "Períodos" dos "Últimos 12 meses" de um estudo novo do parceiro
+   (quantos meses de cada bandeira) e a bandeira do mês atual. Tarifa: só quando a RGE tiver reajuste. */
+var SIM_CONFIG = {
+  atualizadoEm: 'outubro de 2026',
+  tarifaRGE: 0.94461,            // R$/kWh com impostos, bandeira verde (estudos de 10/2026)
+  fatorAssinatura: 0.85,         // preço fixo = 85% do valor na bandeira verde
+  bandeiras: {                   // quanto o valor na concessionária sobe em cada bandeira
+    verde:     { nome: 'Verde',          cor: '#3FA34D', fator: 1.00000 },
+    amarela:   { nome: 'Amarela',        cor: '#F5C518', fator: 1.01996 },
+    vermelha1: { nome: 'Vermelha P1',    cor: '#E5522F', fator: 1.04725 },
+    vermelha2: { nome: 'Vermelha P2',    cor: '#A61E1E', fator: 1.08340 }
+  },
+  ultimos12Meses: { verde: 5, amarela: 6, vermelha1: 1, vermelha2: 0 },
+  bandeiraAtual: 'verde'
+};
+
+(function(){
+  var C = SIM_CONFIG;
+  var form = document.getElementById('simForm');
+  var out = document.getElementById('simOut');
+  var conc = document.getElementById('simConc');
+  var kwhIn = document.getElementById('simKwh');
+  var reaisIn = document.getElementById('simReais');
+  var mode = 'kwh';
+  var WA = '5551997332278';
+
+  function brl(v){ return v.toLocaleString('pt-BR', { style:'currency', currency:'BRL' }); }
+  function pct(v){ return (v*100).toLocaleString('pt-BR', { maximumFractionDigits:1 }) + '%'; }
+
+  document.querySelectorAll('.sim-mode button').forEach(function(b){
+    b.addEventListener('click', function(){
+      mode = b.getAttribute('data-mode');
+      document.querySelectorAll('.sim-mode button').forEach(function(x){ x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      document.getElementById('fieldKwh').hidden = mode !== 'kwh';
+      document.getElementById('fieldReais').hidden = mode !== 'reais';
+    });
+  });
+
+  function waLink(text){ return 'https://wa.me/' + WA + '?text=' + encodeURIComponent(text); }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    if (conc.value !== 'rge') {
+      out.innerHTML = '<p class="sim-msg">Por enquanto o simulador calcula a área da RGE. Para ' + (conc.value === 'ceee' ? 'a CEEE Equatorial' : 'a sua concessionária') +
+        ', me mande uma foto da conta que eu faço a simulação para você.</p>' +
+        '<div class="sim-actions"><a class="btn btn-primary" target="_blank" rel="noopener" href="' + waLink('Oi, Eduardo! Quero uma simulação da minha conta de luz (' + conc.options[conc.selectedIndex].text + ').') + '">Enviar conta no WhatsApp</a></div>';
+      return;
+    }
+    var kwh;
+    if (mode === 'kwh') { kwh = parseFloat(kwhIn.value); }
+    else { var r = parseFloat(String(reaisIn.value).replace(',', '.')); kwh = r / C.tarifaRGE; }
+    if (!kwh || kwh < 30) {
+      out.innerHTML = '<p class="sim-msg">Digite um valor válido para calcular.</p>';
+      (mode === 'kwh' ? kwhIn : reaisIn).focus();
+      return;
+    }
+    var baseVerde = kwh * C.tarifaRGE;
+    var preco = baseVerde * C.fatorAssinatura;
+    var total = 0, totalConc = 0, rows = '';
+    Object.keys(C.bandeiras).forEach(function(k){
+      var meses = C.ultimos12Meses[k] || 0;
+      var b = C.bandeiras[k];
+      var ecoMes = baseVerde * b.fator - preco;
+      total += ecoMes * meses;
+      totalConc += baseVerde * b.fator * meses;
+      if (meses > 0) {
+        rows += '<div class="sim-row"><span class="flag" style="background:' + b.cor + '"></span>' +
+          '<span><strong>' + b.nome + '</strong> <span class="m">' + meses + (meses > 1 ? ' meses' : ' mês') + ' de ' + brl(ecoMes) + '</span></span>' +
+          '<span class="v">' + brl(ecoMes * meses) + '</span></div>';
+      }
+    });
+    var atual = C.bandeiras[C.bandeiraAtual];
+    var ecoAtual = baseVerde * atual.fator - preco;
+    window.__sim = { kwh: Math.round(kwh), total: Math.round(total * 100) / 100, pct: Math.round(total / totalConc * 1000) / 10 };
+    if (typeof fbq === 'function') { fbq('trackCustom', 'SimulacaoFeita', { value: Math.round(total), currency: 'BRL' }); }
+
+    var msg = 'Oi, Eduardo! Fiz a simulação no site: consumo de ' + Math.round(kwh) + ' kWh por mês e economia estimada de ' + brl(total) + ' nos últimos 12 meses. Quero a proposta oficial.';
+    out.innerHTML =
+      '<p class="lead">Nos últimos 12 meses, você teria economizado cerca de</p>' +
+      '<div class="sim-total">' + brl(total) + '</div>' +
+      '<p class="sim-sub">Em média, ' + brl(total / 12) + ' por mês, ou ' + pct(total / totalConc) + ' sobre a energia.</p>' +
+      '<div class="sim-rows">' + rows + '</div>' +
+      '<div class="sim-now">Neste mês a bandeira é <strong>' + atual.nome.toLowerCase() + '</strong>: economia de cerca de <strong>' + brl(ecoAtual) + '</strong>.</div>' +
+      '<p class="sim-note">Estimativa com base nas bandeiras da RGE dos últimos 12 meses e na tarifa vigente (atualizado em ' + C.atualizadoEm + '). O desconto é calculado sobre a energia; iluminação pública e taxas mínimas continuam com a concessionária. A proposta oficial é feita a partir da sua conta.</p>' +
+      '<div class="sim-actions">' +
+        '<button type="button" class="btn btn-primary" data-open-form id="simLead">Quero a proposta oficial</button>' +
+        '<a class="btn btn-wa" target="_blank" rel="noopener" href="' + waLink(msg) + '">Enviar conta no WhatsApp</a>' +
+      '</div>';
+    var btn = document.getElementById('simLead');
+    btn.addEventListener('click', function(){
+      document.getElementById('modalOverlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+})();
+</script>
 </body>
 </html>
