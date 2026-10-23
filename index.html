@@ -280,7 +280,7 @@ src="https://www.facebook.com/tr?id=1031571483232585&ev=PageView&noscript=1"
   }
 
   /* ---------- SIMULADOR ---------- */
-  #simulador{ background:var(--white); }
+  #simulador{ background:var(--white); scroll-margin-top:84px; }
   .sim{ display:grid; grid-template-columns:1fr 1.1fr; gap:0; border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; }
   .sim-in{ padding:36px 34px; background:var(--mint); }
   .sim-in h3{ font-size:22px; margin-bottom:6px; }
@@ -290,6 +290,8 @@ src="https://www.facebook.com/tr?id=1031571483232585&ev=PageView&noscript=1"
   .sim-field small{ display:block; color:var(--ink-soft); font-size:13px; margin-top:6px; line-height:1.45; }
   .sim-field input, .sim-field select{ width:100%; font:inherit; font-size:17px; padding:13px 14px; border:1.5px solid var(--line); border-radius:var(--radius-sm); background:var(--white); color:var(--ink); }
   .sim-field input:focus, .sim-field select:focus{ outline:none; border-color:var(--deep); box-shadow:0 0 0 3px rgba(14,59,54,.12); }
+  .sim-switch{ display:block; background:none; border:0; padding:0; margin:-6px 0 18px; font:inherit; font-size:14px; font-weight:700; color:var(--deep); text-decoration:underline; cursor:pointer; }
+  .sim-switch:focus-visible{ outline:2px solid var(--sun); outline-offset:2px; }
   .sim-mode{ display:flex; gap:6px; margin-bottom:18px; background:var(--white); border:1.5px solid var(--line); border-radius:var(--radius-sm); padding:4px; }
   .sim-mode button{ flex:1; border:0; background:transparent; font:inherit; font-weight:700; font-size:14px; color:var(--ink-soft); padding:9px 8px; border-radius:9px; cursor:pointer; }
   .sim-mode button[aria-pressed="true"]{ background:var(--deep); color:var(--white); }
@@ -311,6 +313,16 @@ src="https://www.facebook.com/tr?id=1031571483232585&ev=PageView&noscript=1"
   .btn-wa{ background:transparent; color:var(--white); border:1.5px solid rgba(255,255,255,.4); }
   .btn-wa:hover{ background:rgba(255,255,255,.08); }
   .sim-msg{ color:#FFD79A; font-size:15px; margin:auto 0; }
+  .sim-cap{ background:var(--white); color:var(--ink); border-radius:var(--radius-sm); padding:18px; margin:4px 0 22px; }
+  .sim-cap h4{ font-family:'Sora',sans-serif; font-size:17px; color:var(--deep); margin:0 0 4px; }
+  .sim-cap p{ font-size:13.5px; color:var(--ink-soft); margin:0 0 12px; }
+  .sim-cap input{ width:100%; font:inherit; font-size:16px; padding:12px 13px; border:1.5px solid var(--line); border-radius:10px; margin-bottom:10px; background:var(--white); color:var(--ink); }
+  .sim-cap input:focus{ outline:none; border-color:var(--deep); box-shadow:0 0 0 3px rgba(14,59,54,.12); }
+  .sim-cap .btn{ width:100%; justify-content:center; }
+  .sim-cap .ok{ font-size:12.5px; color:var(--ink-soft); margin-top:8px; text-align:center; }
+  .sim-cap .err{ font-size:13px; color:#B42318; margin-top:6px; }
+  .sim-done{ text-align:center; }
+  .sim-done h4{ margin-bottom:6px; }
   .sim-in, .sim-out{ min-width:0; }
   .sim-row > span:nth-child(2){ min-width:0; }
   @media (max-width:900px){ .sim{ grid-template-columns:minmax(0,1fr); } .sim-in, .sim-out{ padding:28px 22px; } }
@@ -369,7 +381,18 @@ src="https://www.facebook.com/tr?id=1031571483232585&ev=PageView&noscript=1"
     <div class="sim">
       <form class="sim-in" id="simForm" novalidate>
         <h3>Simule em 10 segundos</h3>
-        <p class="hint">Pegue a sua conta de luz mais recente.</p>
+        <p class="hint">Só precisa saber, mais ou menos, quanto você paga.</p>
+        <div class="sim-field" id="fieldReais">
+          <label for="simReais">Quanto vem a sua conta de luz por mês?</label>
+          <input id="simReais" type="number" inputmode="decimal" min="30" step="0.01" placeholder="Ex: 350">
+          <small>Pode ser um valor aproximado, em reais.</small>
+        </div>
+        <div class="sim-field" id="fieldKwh" hidden>
+          <label for="simKwh">Consumo médio por mês, em kWh</label>
+          <input id="simKwh" type="number" inputmode="numeric" min="30" step="1" placeholder="Ex: 250">
+          <small>Fica na conta, no histórico de consumo. Se puder, use a média dos últimos meses.</small>
+        </div>
+        <button type="button" class="sim-switch" id="simSwitch">Sei o consumo em kWh (resultado mais preciso)</button>
         <div class="sim-field">
           <label for="simConc">Sua concessionária</label>
           <select id="simConc">
@@ -377,20 +400,6 @@ src="https://www.facebook.com/tr?id=1031571483232585&ev=PageView&noscript=1"
             <option value="ceee">CEEE Equatorial</option>
             <option value="outra">Outra</option>
           </select>
-        </div>
-        <div class="sim-mode" role="group" aria-label="Como você quer informar o consumo">
-          <button type="button" data-mode="kwh" aria-pressed="true">Sei o consumo (kWh)</button>
-          <button type="button" data-mode="reais" aria-pressed="false">Sei o valor (R$)</button>
-        </div>
-        <div class="sim-field" id="fieldKwh">
-          <label for="simKwh">Consumo médio por mês, em kWh</label>
-          <input id="simKwh" type="number" inputmode="numeric" min="30" step="1" placeholder="Ex: 250">
-          <small>Fica na conta, no histórico de consumo. Se puder, use a média dos últimos meses.</small>
-        </div>
-        <div class="sim-field" id="fieldReais" hidden>
-          <label for="simReais">Valor médio da conta por mês, em R$</label>
-          <input id="simReais" type="number" inputmode="decimal" min="30" step="0.01" placeholder="Ex: 320">
-          <small>Pelo valor, a estimativa fica aproximada, porque a conta inclui iluminação pública e outras taxas.</small>
         </div>
         <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">Calcular minha economia</button>
       </form>
@@ -687,7 +696,8 @@ var SIM_CONFIG = {
     vermelha2: { nome: 'Vermelha P2',    cor: '#A61E1E', fator: 1.08340 }
   },
   ultimos12Meses: { verde: 5, amarela: 6, vermelha1: 1, vermelha2: 0 },
-  bandeiraAtual: 'verde'
+  bandeiraAtual: 'verde',
+  fatorEnergiaNaConta: 0.83     // ao informar o valor em R$: parte da conta que é energia (conservador; o resto é iluminação pública e taxas)
 };
 
 (function(){
@@ -697,19 +707,19 @@ var SIM_CONFIG = {
   var conc = document.getElementById('simConc');
   var kwhIn = document.getElementById('simKwh');
   var reaisIn = document.getElementById('simReais');
-  var mode = 'kwh';
+  var mode = 'reais';
   var WA = '5551997332278';
 
   function brl(v){ return v.toLocaleString('pt-BR', { style:'currency', currency:'BRL' }); }
   function pct(v){ return (v*100).toLocaleString('pt-BR', { maximumFractionDigits:1 }) + '%'; }
 
-  document.querySelectorAll('.sim-mode button').forEach(function(b){
-    b.addEventListener('click', function(){
-      mode = b.getAttribute('data-mode');
-      document.querySelectorAll('.sim-mode button').forEach(function(x){ x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
-      document.getElementById('fieldKwh').hidden = mode !== 'kwh';
-      document.getElementById('fieldReais').hidden = mode !== 'reais';
-    });
+  var sw = document.getElementById('simSwitch');
+  sw.addEventListener('click', function(){
+    mode = mode === 'reais' ? 'kwh' : 'reais';
+    document.getElementById('fieldKwh').hidden = mode !== 'kwh';
+    document.getElementById('fieldReais').hidden = mode !== 'reais';
+    sw.textContent = mode === 'reais' ? 'Sei o consumo em kWh (resultado mais preciso)' : 'Prefiro informar o valor da conta em R$';
+    (mode === 'kwh' ? kwhIn : reaisIn).focus();
   });
 
   function waLink(text){ return 'https://wa.me/' + WA + '?text=' + encodeURIComponent(text); }
@@ -724,7 +734,7 @@ var SIM_CONFIG = {
     }
     var kwh;
     if (mode === 'kwh') { kwh = parseFloat(kwhIn.value); }
-    else { var r = parseFloat(String(reaisIn.value).replace(',', '.')); kwh = r / C.tarifaRGE; }
+    else { var r = parseFloat(String(reaisIn.value).replace(',', '.')); kwh = r * C.fatorEnergiaNaConta / C.tarifaRGE; }
     if (!kwh || kwh < 30) {
       out.innerHTML = '<p class="sim-msg">Digite um valor válido para calcular.</p>';
       (mode === 'kwh' ? kwhIn : reaisIn).focus();
@@ -755,17 +765,51 @@ var SIM_CONFIG = {
       '<p class="lead">Nos últimos 12 meses, você teria economizado cerca de</p>' +
       '<div class="sim-total">' + brl(total) + '</div>' +
       '<p class="sim-sub">Em média, ' + brl(total / 12) + ' por mês, ou ' + pct(total / totalConc) + ' sobre a energia.</p>' +
+      '<div class="sim-cap" id="simCap">' +
+        '<h4>Receba a proposta oficial no seu WhatsApp</h4>' +
+        '<p>Com a sua conta, eu confirmo o valor exato. Leva menos de 1 minuto.</p>' +
+        '<input id="capNome" type="text" autocomplete="name" placeholder="Seu nome">' +
+        '<input id="capWhats" type="tel" autocomplete="tel" inputmode="tel" placeholder="WhatsApp com DDD">' +
+        '<button type="button" class="btn btn-primary" id="capBtn">Quero a proposta</button>' +
+        '<div class="err" id="capErr"></div>' +
+        '<div class="ok">Sem custo para entrar e sem compromisso.</div>' +
+      '</div>' +
       '<div class="sim-rows">' + rows + '</div>' +
       '<div class="sim-now">Neste mês a bandeira é <strong>' + atual.nome.toLowerCase() + '</strong>: economia de cerca de <strong>' + brl(ecoAtual) + '</strong>.</div>' +
       '<p class="sim-note">Estimativa com base nas bandeiras da RGE dos últimos 12 meses e na tarifa vigente (atualizado em ' + C.atualizadoEm + '). O desconto é calculado sobre a energia; iluminação pública e taxas mínimas continuam com a concessionária. A proposta oficial é feita a partir da sua conta.</p>' +
       '<div class="sim-actions">' +
-        '<button type="button" class="btn btn-primary" data-open-form id="simLead">Quero a proposta oficial</button>' +
-        '<a class="btn btn-wa" target="_blank" rel="noopener" href="' + waLink(msg) + '">Enviar conta no WhatsApp</a>' +
+        '<a class="btn btn-wa" target="_blank" rel="noopener" href="' + waLink(msg) + '">Prefiro chamar no WhatsApp</a>' +
       '</div>';
-    var btn = document.getElementById('simLead');
-    btn.addEventListener('click', function(){
-      document.getElementById('modalOverlay').classList.add('open');
-      document.body.style.overflow = 'hidden';
+    if (window.innerWidth <= 900) { out.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    var params = new URLSearchParams(window.location.search);
+    var capBtn = document.getElementById('capBtn');
+    capBtn.addEventListener('click', function(){
+      var nome = document.getElementById('capNome').value.trim();
+      var whats = document.getElementById('capWhats').value.trim();
+      var err = document.getElementById('capErr');
+      err.textContent = '';
+      if (!nome) { document.getElementById('capNome').focus(); err.textContent = 'Digite o seu nome.'; return; }
+      if (String(whats).replace(/\D/g, '').length < 10) { document.getElementById('capWhats').focus(); err.textContent = 'Digite o WhatsApp com DDD.'; return; }
+      capBtn.disabled = true; capBtn.textContent = 'Enviando...';
+      fetch('/.netlify/functions/submit-lead', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          nome: nome, whatsapp: whats, cidade: '', origem: 'site',
+          utm_source: params.get('utm_source') || '', utm_medium: params.get('utm_medium') || '', utm_campaign: params.get('utm_campaign') || '',
+          pagina: window.location.href,
+          consumo_kwh: window.__sim.kwh, economia_estimada_12m: window.__sim.total, percentual_medio: window.__sim.pct
+        })
+      }).then(function(res){ if (!res.ok) throw new Error('falha'); return res.json(); })
+      .then(function(){
+        if (typeof fbq === 'function') { fbq('track', 'Lead'); }
+        document.getElementById('simCap').innerHTML =
+          '<div class="sim-done"><h4>Recebido, ' + nome.split(' ')[0] + '!</h4>' +
+          '<p>Eu te chamo no WhatsApp em breve. Se quiser adiantar, me mande uma foto da sua última conta por lá.</p>' +
+          '<a class="btn btn-primary" target="_blank" rel="noopener" href="' + waLink(msg) + '">Enviar a conta agora</a></div>';
+      }).catch(function(){
+        err.textContent = 'Não consegui enviar agora. Tente de novo ou chame no WhatsApp logo abaixo.';
+        capBtn.disabled = false; capBtn.textContent = 'Quero a proposta';
+      });
     });
   });
 })();
