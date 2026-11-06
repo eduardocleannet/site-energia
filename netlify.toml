@@ -4,3 +4,38 @@
 
 [functions]
   node_bundler = "esbuild"
+
+# Envia quem acessar o endereço antigo (netlify.app) para o domínio oficial,
+# evitando que o Google veja duas versões do mesmo site.
+[[redirects]]
+  from = "https://eduardosouza-energia.netlify.app/*"
+  to = "https://eduardosouzaenergia.com.br/:splat"
+  status = 301
+  force = true
+
+# Esconde do público os arquivos internos do projeto (instruções, configuração
+# e código da função). Eles continuam no GitHub e funcionando normalmente;
+# só deixam de abrir pelo endereço do site.
+[[redirects]]
+  from = "/LEIA-ME.md"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/package.json"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/netlify.toml"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/netlify/*"
+  to = "/404.html"
+  status = 404
+  force = true
