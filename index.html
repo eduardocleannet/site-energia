@@ -70,6 +70,25 @@
 </script>
 <!-- Fim Google Analytics 4 -->
 
+<!-- Eventos do Google Analytics 4 (sem dados pessoais) -->
+<script>
+  /* gaEvent(nome, parâmetros, chave)
+     - Só envia valores fixos e genéricos: nunca nome, telefone, e-mail, cidade nem valores digitados.
+     - Se o Analytics estiver bloqueado ou falhar, o site continua funcionando normalmente.
+     - A "chave" evita enviar o mesmo evento duas vezes por duplo clique (janela de 1,5 segundo). */
+  var __gaUltimo = {};
+  function gaEvent(nome, params, chave){
+    try {
+      if (chave) {
+        var agora = Date.now();
+        if (__gaUltimo[chave] && agora - __gaUltimo[chave] < 1500) { return; }
+        __gaUltimo[chave] = agora;
+      }
+      if (typeof gtag === 'function') { gtag('event', nome, params || {}); }
+    } catch (e) {}
+  }
+</script>
+
 <!-- Meta Pixel -->
 <script>
 !function(f,b,e,v,n,t,s)
@@ -742,6 +761,7 @@ src="https://www.facebook.com/tr?id=1031571483232585&ev=PageView&noscript=1"
     })
     .then(function(){
       if (typeof fbq === 'function') { fbq('track', 'Lead'); }
+      gaEvent('generate_lead', { lead_source: 'modal_form', after_simulation: !!window.__sim }, 'lead|modal');
       formShell.style.display = 'none';
       successShell.style.display = 'block';
     })
@@ -854,6 +874,7 @@ var SIM_CONFIG = {
       '<div class="sim-actions">' +
         '<a class="btn btn-wa" target="_blank" rel="noopener" href="' + waLink(msg) + '">Prefiro chamar no WhatsApp</a>' +
       '</div>';
+    gaEvent('simulation_completed', { simulation_mode: mode, utility: 'rge' }, 'sim|' + mode + '|' + Math.round(kwh));
     if (window.innerWidth <= 900) { out.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
     var params = new URLSearchParams(window.location.search);
     var capBtn = document.getElementById('capBtn');
@@ -876,6 +897,7 @@ var SIM_CONFIG = {
       }).then(function(res){ if (!res.ok) throw new Error('falha'); return res.json(); })
       .then(function(){
         if (typeof fbq === 'function') { fbq('track', 'Lead'); }
+        gaEvent('generate_lead', { lead_source: 'simulator_result', after_simulation: true }, 'lead|sim');
         document.getElementById('simCap').innerHTML =
           '<div class="sim-done"><h4>Recebido, ' + nome.split(' ')[0] + '!</h4>' +
           '<p>Eu te chamo no WhatsApp em breve. Se quiser adiantar, me mande uma foto da sua última conta por lá.</p>' +
@@ -914,6 +936,30 @@ var SIM_CONFIG = {
     if (window.innerWidth > 900) {
       document.getElementById('simulador').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
+  });
+})();
+</script>
+
+<script>
+/* ===== GA4: whatsapp_click =====
+   Um único "ouvinte" no documento cobre todos os links do WhatsApp, inclusive os criados depois pelo simulador.
+   Não envia o endereço do link (ele leva a mensagem pré-preenchida): só o lugar da página onde houve o clique. */
+(function(){
+  function onde(a){
+    if (a.closest('.wa-float')) return 'floating_button';
+    if (a.closest('#successShell')) return 'lead_success';
+    if (a.closest('#simOut')) {
+      if (a.classList.contains('btn-wa')) return 'simulator_result';
+      if (a.closest('.sim-done')) return 'simulator_after_lead';
+      return 'simulator_other_utility';
+    }
+    return 'other';
+  }
+  document.addEventListener('click', function(e){
+    var a = e.target && e.target.closest ? e.target.closest('a[href*="wa.me"]') : null;
+    if (!a) return;
+    var lugar = onde(a);
+    gaEvent('whatsapp_click', { click_location: lugar, transport_type: 'beacon' }, 'wa|' + lugar);
   });
 })();
 </script>
