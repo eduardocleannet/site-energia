@@ -307,7 +307,7 @@ src="https://www.facebook.com/tr?id=1031571483232585&ev=PageView&noscript=1"
 
   @media (max-width:900px){
     .hero .wrap{ grid-template-columns:1fr; }
-    .hero-visual{ order:-1; max-width:340px; margin:0 auto 20px; }
+    .hero-visual{ max-width:340px; margin:34px auto 0; }
     .steps{ grid-template-columns:1fr; }
     .vantagens{ grid-template-columns:repeat(2,1fr); }
     .depoimentos{ grid-template-columns:1fr; }
@@ -362,6 +362,23 @@ src="https://www.facebook.com/tr?id=1031571483232585&ev=PageView&noscript=1"
   .sim-in, .sim-out{ min-width:0; }
   .sim-row > span:nth-child(2){ min-width:0; }
   @media (max-width:900px){ .sim{ grid-template-columns:minmax(0,1fr); } .sim-in, .sim-out{ padding:28px 22px; } }
+
+  /* ===== Campo de simulação no topo ===== */
+  .hero-sim{ background:var(--white); border:1px solid var(--line); border-radius:var(--radius); padding:20px 20px 16px; box-shadow:0 10px 28px rgba(14,59,54,.08); margin-top:28px; max-width:540px; }
+  .hero-sim label{ display:block; font-weight:700; font-size:15.5px; color:var(--deep); margin-bottom:10px; }
+  .hero-sim-row{ display:grid; grid-template-columns:1.3fr 1fr; gap:10px; }
+  .hero-sim-row input, .hero-sim-row select{ width:100%; min-width:0; font:inherit; font-size:17px; padding:13px 14px; border:1.5px solid var(--line); border-radius:var(--radius-sm); background:var(--white); color:var(--ink); }
+  .hero-sim-row input:focus, .hero-sim-row select:focus{ outline:none; border-color:var(--deep); box-shadow:0 0 0 3px rgba(14,59,54,.12); }
+  .hero-sim-row .btn{ grid-column:1 / -1; justify-content:center; width:100%; }
+  .hero-sim small{ display:block; color:var(--ink-soft); font-size:13px; margin-top:10px; line-height:1.45; }
+  .hero-sim-err{ color:#B42318; font-size:13.5px; margin-top:6px; min-height:0; }
+  .hero-alt{ margin:14px 0 0; font-size:14.5px; color:var(--ink-soft); }
+  .linklike{ background:none; border:0; padding:0; font:inherit; font-weight:700; color:var(--deep); text-decoration:underline; cursor:pointer; }
+  .linklike:focus-visible{ outline:2px solid var(--sun); outline-offset:2px; }
+  @media (min-width:901px){ .hero{ padding-top:44px; } }
+  @media (max-width:900px){ .hero{ padding:30px 0 48px; } }
+  /* Depois de calcular no celular, o resultado para abaixo do cabeçalho fixo (antes o valor ficava escondido atrás dele) */
+  @media (max-width:900px){ .sim-out{ scroll-margin-top:136px; } }
 </style>
 </head>
 <body>
@@ -384,11 +401,22 @@ src="https://www.facebook.com/tr?id=1031571483232585&ev=PageView&noscript=1"
     <div>
       <span class="badge-pill"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M13 2 3 14h8l-1 8 10-12h-8z"/></svg></span>Energia por assinatura para sua casa e para o seu negócio</span>
       <h1>Energia por assinatura: economize na conta de luz <span class="hl">sem instalar nada</span>.</h1>
-      <p class="sub">Você continua com a sua concessionária, do mesmo jeito de sempre. A diferença aparece na cobrança — com um desconto, sem burocracia e com alguém de verdade te acompanhando em cada etapa.</p>
-      <div class="ctas">
-        <button class="btn btn-primary" data-open-form>Quero economizar</button>
-        <a class="btn btn-ghost" href="#simulador">Simular minha economia</a>
-      </div>
+      <form class="hero-sim" id="heroSim" novalidate>
+        <label for="heroReais">Quanto vem a sua conta de luz por mês?</label>
+        <div class="hero-sim-row">
+          <input id="heroReais" type="number" inputmode="decimal" min="30" step="0.01" placeholder="Ex: 350 (em R$)" aria-describedby="heroSimHint">
+          <select id="heroConc" aria-label="Sua concessionária">
+            <option value="rge">RGE</option>
+            <option value="ceee">CEEE Equatorial</option>
+            <option value="outra">Outra</option>
+          </select>
+          <button type="submit" class="btn btn-primary">Calcular minha economia</button>
+        </div>
+        <small id="heroSimHint">Pode ser um valor aproximado. Veja quanto você teria economizado nos últimos 12 meses.</small>
+        <div class="hero-sim-err" id="heroSimErr" role="alert"></div>
+      </form>
+      <p class="hero-alt">Prefere falar direto? <button type="button" class="linklike" data-open-form>Quero economizar</button></p>
+      <p class="sub" style="margin-top:22px;">Você continua com a sua concessionária, do mesmo jeito de sempre. A diferença aparece na cobrança — com um desconto, sem burocracia e com alguém de verdade te acompanhando em cada etapa.</p>
       <div class="trust-row">
         <div class="item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Sem instalação</div>
         <div class="item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Sem taxa de adesão</div>
@@ -847,6 +875,35 @@ var SIM_CONFIG = {
         capBtn.disabled = false; capBtn.textContent = 'Quero a proposta';
       });
     });
+  });
+})();
+</script>
+
+<script>
+/* ===== Campo de simulação no topo: usa o simulador da seção #simulador ===== */
+(function(){
+  var f = document.getElementById('heroSim');
+  if (!f) return;
+  var inp = document.getElementById('heroReais');
+  var err = document.getElementById('heroSimErr');
+  f.addEventListener('submit', function(e){
+    e.preventDefault();
+    err.textContent = '';
+    var v = parseFloat(String(inp.value).replace(',', '.'));
+    if (!v || v < 30) {
+      err.textContent = 'Digite o valor aproximado da sua conta, em reais (a partir de R$ 30).';
+      inp.focus();
+      return;
+    }
+    // Se a pessoa estava no modo "kWh" do simulador de baixo, volta para o modo "R$"
+    if (document.getElementById('fieldReais').hidden) { document.getElementById('simSwitch').click(); }
+    document.getElementById('simReais').value = inp.value;
+    document.getElementById('simConc').value = document.getElementById('heroConc').value;
+    document.getElementById('simForm').dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+    // No computador o resultado aparece ao lado do formulário; no celular o próprio simulador já rola até ele
+    if (window.innerWidth > 900) {
+      document.getElementById('simulador').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   });
 })();
 </script>
