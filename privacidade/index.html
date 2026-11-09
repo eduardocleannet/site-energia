@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Política de Privacidade | Eduardo Souza</title>
+<meta name="description" content="Como o site de Eduardo Souza trata os seus dados pessoais: o que coleta, para que usa, com quem compartilha e como você exerce os seus direitos.">
+<link rel="canonical" href="https://eduardosouzaenergia.com.br/privacidade/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --deep:#0E3B36;
+    --deep-2:#124A43;
+    --mint:#EEF7F1;
+    --mint-2:#E3F1E7;
+    --sun:#F5A524;
+    --sun-deep:#D6890F;
+    --coral:#FF6F52;
+    --coral-deep:#E5522F;
+    --ink:#122622;
+    --ink-soft:#4E655F;
+    --line:#DCEBE1;
+    --white:#FFFFFF;
+    --radius:18px;
+    --radius-sm:12px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--white);
+    color:var(--ink);
+    font-family:'Manrope', sans-serif;
+    font-size:17px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{
+    font-family:'Sora', sans-serif;
+    font-weight:700;
+    line-height:1.15;
+    margin:0;
+    color:var(--deep);
+    letter-spacing:-.01em;
+  }
+  p{margin:0 0 1em 0; max-width:38em;}
+  a{color:inherit;}
+  img{max-width:100%;display:block;}
+  .wrap{ max-width:1140px; margin:0 auto; padding:0 28px; }
+
+  .btn{
+    display:inline-flex; align-items:center; gap:9px;
+    font-family:'Manrope', sans-serif; font-weight:700; font-size:16px;
+    padding:15px 30px; border-radius:100px; border:none; cursor:pointer;
+    text-decoration:none; transition:transform .16s ease, box-shadow .16s ease, background .16s ease;
+    white-space:nowrap;
+  }
+  .btn-primary{ background:var(--sun); color:var(--deep); }
+  .btn-primary:hover{ background:var(--sun-deep); transform:translateY(-2px); box-shadow:0 10px 22px rgba(245,165,36,.35); }
+  .btn-ghost{ background:var(--white); color:var(--deep); border:1.5px solid var(--line); }
+  .btn-ghost:hover{ border-color:var(--deep); }
+  .btn-onDark{ background:var(--white); color:var(--deep); }
+  .btn-onDark:hover{ background:var(--sun); transform:translateY(-2px); }
+  .btn:disabled{ opacity:.45; cursor:not-allowed; transform:none; box-shadow:none; }
+
+  /* ---------- HEADER ---------- */
+  header{ position:sticky; top:0; z-index:40; background:rgba(255,255,255,.9); backdrop-filter:blur(8px); border-bottom:1px solid var(--line); }
+  header .wrap{ display:flex; align-items:center; justify-content:space-between; padding:18px 28px; }
+  .logo{ font-family:'Sora', sans-serif; font-weight:800; font-size:19px; color:var(--deep); display:flex; align-items:center; gap:9px; line-height:1.2; }
+  .logo .dot{ width:9px; height:9px; border-radius:50%; background:var(--sun); flex:none; }
+  .logo .role{ display:block; font-family:'Manrope',sans-serif; font-weight:600; font-size:12px; color:var(--ink-soft); margin-top:1px; }
+  header .btn{ padding:11px 22px; font-size:14.5px; }
+  .ig-link{ display:inline-flex; align-items:center; gap:7px; font-size:14px; font-weight:700; color:var(--deep); text-decoration:none; margin-right:18px; }
+  .ig-link svg{ width:19px; height:19px; color:var(--coral-deep); }
+  .header-actions{ display:flex; align-items:center; }
+  @media (max-width:640px){ .ig-link span{ display:none; } .ig-link{ margin-right:12px; } }
+
+  /* ---------- HERO ---------- */
+  .hero{ padding:70px 0 60px; position:relative; overflow:hidden; background:var(--mint); }
+  .hero .wrap{ display:grid; grid-template-columns:1.05fr .95fr; gap:50px; align-items:center; position:relative; z-index:2; }
+  .badge-pill{
+    display:inline-flex; align-items:center; gap:8px; background:var(--white); color:var(--deep);
+    font-weight:700; font-size:13.5px; padding:8px 16px 8px 8px; border-radius:100px; margin-bottom:22px;
+    box-shadow:0 4px 14px rgba(14,59,54,.08);
+  }
+  .badge-pill .ico{ width:22px; height:22px; border-radius:50%; background:var(--sun); display:flex; align-items:center; justify-content:center; flex:none; }
+  .badge-pill .ico svg{ width:12px; height:12px; color:var(--deep); }
+  .hero h1{ font-size:clamp(32px,4.2vw,50px); color:var(--deep); }
+  .hero h1 .hl{ color:var(--coral); }
+  .hero .sub{ font-size:18.5px; color:var(--ink-soft); margin-top:20px; max-width:32em; }
+  .hero .ctas{ display:flex; gap:14px; margin-top:30px; flex-wrap:wrap; }
+  .trust-row{ display:flex; gap:24px; margin-top:34px; flex-wrap:wrap; }
+  .trust-row .item{ display:flex; align-items:center; gap:8px; font-size:14px; color:var(--deep); font-weight:700; }
+  .trust-row .item svg{ width:17px; height:17px; color:var(--deep-2); flex:none; }
+
+  .hero-visual{ position:relative; }
+  .blob{ position:absolute; border-radius:58% 42% 55% 45%/48% 52% 48% 52%; filter:blur(2px); z-index:0; }
+  .blob-1{ width:340px; height:340px; background:linear-gradient(140deg,var(--sun),var(--coral)); top:-30px; right:-20px; opacity:.9; }
+  .blob-2{ width:180px; height:180px; background:var(--deep-2); bottom:-20px; left:-30px; opacity:.14; border-radius:50%; }
+  .photo-frame{
+    position:relative; z-index:1; border-radius:32px; overflow:hidden;
+    aspect-ratio:4/5; box-shadow:0 30px 60px rgba(14,59,54,.22);
+    border:6px solid var(--white);
+  }
+  .photo-frame img{ width:100%; height:100%; object-fit:cover; object-position:center 15%; }
+  .float-card{
+    background:var(--white); border-radius:var(--radius-sm);
+    padding:14px 18px; box-shadow:0 14px 30px rgba(14,59,54,.18);
+    display:flex; align-items:center; gap:12px; max-width:250px;
+  }
+  .float-card.card-bottom{ margin:-40px 0 0 20px; position:relative; z-index:3; }
+  .float-card .emoji-badge{ width:38px; height:38px; border-radius:50%; background:var(--mint-2); display:flex; align-items:center; justify-content:center; flex:none; }
+  .float-card .emoji-badge svg{ width:19px; height:19px; color:var(--deep-2); }
+  .float-card strong{ display:block; font-size:14px; color:var(--deep); }
+  .float-card span{ display:block; font-size:12.5px; color:var(--ink-soft); margin-top:1px; }
+
+  /* ---------- SECTION SHELL ---------- */
+  section{ padding:78px 0; }
+  .section-head{ max-width:34em; margin-bottom:48px; }
+  .section-head .eyebrow{
+    display:inline-flex; align-items:center; gap:8px; color:var(--coral-deep); font-weight:700; font-size:13.5px;
+    background:#FFF0EA; padding:6px 14px; border-radius:100px; margin-bottom:16px;
+  }
+  .section-head h2{ font-size:clamp(26px,3vw,36px); }
+
+  /* ---------- COMO FUNCIONA ---------- */
+  .steps{ display:grid; grid-template-columns:repeat(3,1fr); gap:26px; position:relative; }
+  .step{ background:var(--white); border:1px solid var(--line); border-radius:var(--radius); padding:30px 26px; position:relative; }
+  .step .num{
+    width:40px; height:40px; border-radius:50%; background:var(--deep); color:var(--white);
+    font-family:'Sora',sans-serif; font-weight:700; font-size:16px;
+    display:flex; align-items:center; justify-content:center; margin-bottom:18px;
+  }
+  .step h3{ font-size:19px; margin-bottom:9px; color:var(--deep); }
+  .step p{ color:var(--ink-soft); font-size:15.5px; margin:0; }
+
+  /* ---------- VANTAGENS ---------- */
+  .vantagens-wrap{ background:var(--deep); position:relative; }
+  .vantagens-wrap .section-head h2{ color:var(--white); }
+  .vantagens-wrap .section-head .eyebrow{ background:rgba(255,255,255,.12); color:#FFD79A; }
+  .vantagens{ display:grid; grid-template-columns:repeat(4,1fr); gap:20px; }
+  .vantagem{ background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12); border-radius:var(--radius); padding:26px 22px; }
+  .vantagem .ico-wrap{ width:44px; height:44px; border-radius:12px; background:var(--sun); display:flex; align-items:center; justify-content:center; margin-bottom:16px; }
+  .vantagem .ico-wrap svg{ width:22px; height:22px; color:var(--deep); }
+  .vantagem h3{ font-size:17px; margin-bottom:8px; color:var(--white); }
+  .vantagem p{ color:rgba(255,255,255,.72); font-size:14.5px; margin:0; }
+
+  /* ---------- DEPOIMENTOS ---------- */
+  .depoimentos{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+  .depoimento{
+    background:var(--mint); border:1px solid var(--line); border-radius:var(--radius);
+    padding:28px 26px; display:flex; flex-direction:column; gap:16px;
+  }
+  .depoimento .quote-mark{ font-family:'Sora', sans-serif; font-size:36px; color:var(--sun); line-height:.5; font-weight:800; }
+  .depoimento p.txt{ font-size:15.5px; color:var(--ink); margin:0; flex:1; }
+  .depoimento .autor{ display:flex; align-items:center; gap:12px; border-top:1px solid var(--line); padding-top:14px; }
+  .depoimento .avatar{ width:38px; height:38px; border-radius:50%; background:var(--deep-2); color:var(--white); font-weight:700; font-size:14px; display:flex; align-items:center; justify-content:center; flex:none; }
+  .depoimento .autor .who{ font-size:14px; font-weight:700; color:var(--deep); }
+  .depoimento .autor .who span{ font-weight:400; display:block; font-size:12.5px; color:var(--ink-soft); margin-top:1px; }
+  .depoimento.placeholder{ border-style:dashed; background:var(--white); }
+  .depoimento.placeholder .txt{ font-style:italic; color:rgba(18,38,34,.45); }
+  .depoimento.placeholder .avatar{ background:var(--line); color:var(--ink-soft); }
+
+  /* ---------- FAQ ---------- */
+  .faq-item{ border-bottom:1px solid var(--line); }
+  .faq-item summary{
+    cursor:pointer; list-style:none; padding:22px 4px; display:flex; justify-content:space-between; align-items:center;
+    font-weight:700; font-size:16.5px; gap:16px; color:var(--deep); font-family:'Sora',sans-serif;
+  }
+  .faq-item summary::-webkit-details-marker{ display:none; }
+  .faq-item summary .plus{
+    width:28px; height:28px; border-radius:50%; background:var(--mint-2); color:var(--deep);
+    display:flex; align-items:center; justify-content:center; flex:none; font-size:18px; font-weight:700;
+    transition:transform .18s ease, background .18s ease;
+  }
+  .faq-item[open] summary .plus{ transform:rotate(45deg); background:var(--sun); }
+  .faq-item .a{ padding:0 4px 24px 0; color:var(--ink-soft); font-size:15.5px; max-width:42em; }
+
+  /* ---------- CTA FINAL ---------- */
+  .cta-final{
+    background:linear-gradient(120deg, var(--deep) 0%, var(--deep-2) 100%);
+    color:var(--white); border-radius:28px; padding:56px 48px;
+    display:flex; align-items:center; justify-content:space-between; gap:32px; flex-wrap:wrap;
+    position:relative; overflow:hidden;
+  }
+  .cta-final::after{
+    content:''; position:absolute; width:260px; height:260px; border-radius:50%;
+    background:var(--sun); opacity:.16; right:-70px; top:-70px;
+  }
+  .cta-final h2{ color:var(--white); font-size:clamp(24px,3vw,32px); max-width:22em; position:relative; z-index:1; }
+  .cta-final .btn{ position:relative; z-index:1; }
+
+  /* ---------- FOOTER ---------- */
+  footer{ padding:44px 0 32px; border-top:1px solid var(--line); }
+  footer .wrap{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; }
+  footer .foot-note{ font-size:13px; color:var(--ink-soft); max-width:40em; margin:0; }
+
+  /* ---------- WHATSAPP FLOAT ---------- */
+  .wa-float{
+    position:fixed; bottom:22px; right:22px; z-index:50;
+    background:#25D366; color:#fff; width:58px; height:58px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 12px 28px rgba(0,0,0,.24); text-decoration:none;
+  }
+  .wa-float svg{ width:29px; height:29px; }
+
+  /* ---------- MODAL / FORM ---------- */
+  .modal-overlay{ position:fixed; inset:0; background:rgba(14,42,38,.55); display:none; align-items:center; justify-content:center; z-index:100; padding:20px; }
+  .modal-overlay.open{ display:flex; }
+  .modal{ background:var(--white); border-radius:24px; max-width:460px; width:100%; padding:38px 34px 30px; position:relative; box-shadow:0 40px 70px rgba(0,0,0,.3); }
+  .modal .close{ position:absolute; top:18px; right:18px; background:var(--mint); border:none; border-radius:50%; width:32px; height:32px; cursor:pointer; font-size:20px; color:var(--ink-soft); line-height:1; }
+  .modal h3{ font-size:24px; margin-bottom:6px; color:var(--deep); }
+  .modal .step-sub{ color:var(--ink-soft); font-size:14.5px; margin-bottom:22px; }
+  .progress{ display:flex; gap:6px; margin-bottom:24px; }
+  .progress .bar{ height:4px; flex:1; background:var(--mint-2); border-radius:2px; overflow:hidden; }
+  .progress .bar span{ display:block; height:100%; width:0%; background:var(--sun); transition:width .25s ease; }
+  .field{ margin-bottom:16px; }
+  .field label{ display:block; font-size:13.5px; font-weight:700; margin-bottom:6px; color:var(--deep); }
+  .field input, .field select{
+    width:100%; padding:13px 14px; font-size:16px; font-family:'Manrope',sans-serif;
+    border:1.5px solid var(--line); border-radius:12px; background:var(--mint); color:var(--ink);
+  }
+  .field input:focus, .field select:focus{ outline:none; border-color:var(--sun); background:var(--white); box-shadow:0 0 0 3px rgba(245,165,36,.18); }
+  .form-step{ display:none; }
+  .form-step.active{ display:block; }
+  .form-actions{ display:flex; gap:10px; margin-top:22px; }
+  .form-actions .btn{ flex:1; justify-content:center; }
+  .form-msg{ font-size:13.5px; color:var(--coral-deep); margin-top:10px; min-height:18px; }
+  .success-box{ text-align:center; padding:10px 0; }
+  .success-box .icon-wrap{ width:60px; height:60px; border-radius:50%; background:var(--mint-2); display:flex; align-items:center; justify-content:center; margin:0 auto 18px; }
+  .success-box .icon-wrap svg{ width:28px; height:28px; color:var(--deep-2); }
+  .success-box h3{ font-size:22px; margin-bottom:10px; color:var(--deep); }
+  .success-box p{ color:var(--ink-soft); margin:0 auto; }
+
+  @media (max-width:900px){
+    .hero .wrap{ grid-template-columns:1fr; }
+    .hero-visual{ max-width:340px; margin:34px auto 0; }
+    .steps{ grid-template-columns:1fr; }
+    .vantagens{ grid-template-columns:repeat(2,1fr); }
+    .depoimentos{ grid-template-columns:1fr; }
+    .cta-final{ flex-direction:column; text-align:left; padding:42px 28px; }
+    header .btn span{ display:none; }
+  }
+
+  /* ---------- SIMULADOR ---------- */
+  #simulador{ background:var(--white); scroll-margin-top:84px; }
+  .sim{ display:grid; grid-template-columns:1fr 1.1fr; gap:0; border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; }
+  .sim-in{ padding:36px 34px; background:var(--mint); }
+  .sim-in h3{ font-size:22px; margin-bottom:6px; }
+  .sim-in .hint{ color:var(--ink-soft); font-size:14.5px; margin:0 0 22px; }
+  .sim-field{ margin-bottom:18px; }
+  .sim-field label{ display:block; font-weight:700; font-size:14.5px; color:var(--deep); margin-bottom:7px; }
+  .sim-field small{ display:block; color:var(--ink-soft); font-size:13px; margin-top:6px; line-height:1.45; }
+  .sim-field input, .sim-field select{ width:100%; font:inherit; font-size:17px; padding:13px 14px; border:1.5px solid var(--line); border-radius:var(--radius-sm); background:var(--white); color:var(--ink); }
+  .sim-field input:focus, .sim-field select:focus{ outline:none; border-color:var(--deep); box-shadow:0 0 0 3px rgba(14,59,54,.12); }
+  .sim-switch{ display:block; background:none; border:0; padding:0; margin:-6px 0 18px; font:inherit; font-size:14px; font-weight:700; color:var(--deep); text-decoration:underline; cursor:pointer; }
+  .sim-switch:focus-visible{ outline:2px solid var(--sun); outline-offset:2px; }
+  .sim-mode{ display:flex; gap:6px; margin-bottom:18px; background:var(--white); border:1.5px solid var(--line); border-radius:var(--radius-sm); padding:4px; }
+  .sim-mode button{ flex:1; border:0; background:transparent; font:inherit; font-weight:700; font-size:14px; color:var(--ink-soft); padding:9px 8px; border-radius:9px; cursor:pointer; }
+  .sim-mode button[aria-pressed="true"]{ background:var(--deep); color:var(--white); }
+  .sim-mode button:focus-visible{ outline:2px solid var(--sun); outline-offset:2px; }
+  .sim-out{ padding:36px 34px; background:var(--deep); color:var(--white); display:flex; flex-direction:column; }
+  .sim-out .empty{ color:rgba(255,255,255,.7); font-size:16px; margin:auto 0; max-width:24em; }
+  .sim-out .lead{ color:rgba(255,255,255,.75); font-size:15px; margin:0 0 6px; }
+  .sim-total{ font-family:'Sora',sans-serif; font-weight:800; font-size:clamp(40px,5.4vw,60px); line-height:1; color:var(--sun); letter-spacing:-.02em; }
+  .sim-sub{ color:rgba(255,255,255,.85); font-size:16px; margin:10px 0 22px; }
+  .sim-rows{ border-top:1px solid rgba(255,255,255,.14); margin-bottom:20px; }
+  .sim-row{ display:grid; grid-template-columns:auto 1fr auto; gap:12px; align-items:center; padding:11px 0; border-bottom:1px solid rgba(255,255,255,.1); font-size:15px; }
+  .sim-row .flag{ width:12px; height:28px; border-radius:3px; }
+  .sim-row .m{ color:rgba(255,255,255,.7); }
+  .sim-row .v{ font-weight:700; }
+  .sim-now{ background:rgba(255,255,255,.08); border-radius:var(--radius-sm); padding:12px 14px; font-size:15px; margin-bottom:20px; }
+  .sim-note{ color:rgba(255,255,255,.6); font-size:12.5px; line-height:1.5; margin:0 0 20px; }
+  .sim-actions{ display:flex; flex-direction:column; gap:10px; margin-top:auto; }
+  .sim-actions .btn{ justify-content:center; width:100%; }
+  .btn-wa{ background:transparent; color:var(--white); border:1.5px solid rgba(255,255,255,.4); }
+  .btn-wa:hover{ background:rgba(255,255,255,.08); }
+  .sim-msg{ color:#FFD79A; font-size:15px; margin:auto 0; }
+  .sim-cap{ background:var(--white); color:var(--ink); border-radius:var(--radius-sm); padding:18px; margin:4px 0 22px; }
+  .sim-cap h4{ font-family:'Sora',sans-serif; font-size:17px; color:var(--deep); margin:0 0 4px; }
+  .sim-cap p{ font-size:13.5px; color:var(--ink-soft); margin:0 0 12px; }
+  .sim-cap input{ width:100%; font:inherit; font-size:16px; padding:12px 13px; border:1.5px solid var(--line); border-radius:10px; margin-bottom:10px; background:var(--white); color:var(--ink); }
+  .sim-cap input:focus{ outline:none; border-color:var(--deep); box-shadow:0 0 0 3px rgba(14,59,54,.12); }
+  .sim-cap .btn{ width:100%; justify-content:center; }
+  .sim-cap .ok{ font-size:12.5px; color:var(--ink-soft); margin-top:8px; text-align:center; }
+  .sim-cap .err{ font-size:13px; color:#B42318; margin-top:6px; }
+  .sim-done{ text-align:center; }
+  .sim-done h4{ margin-bottom:6px; }
+  .sim-in, .sim-out{ min-width:0; }
+  .sim-row > span:nth-child(2){ min-width:0; }
+  @media (max-width:900px){ .sim{ grid-template-columns:minmax(0,1fr); } .sim-in, .sim-out{ padding:28px 22px; } }
+
+  /* ===== Campo de simulação no topo ===== */
+  .hero-sim{ background:var(--white); border:1px solid var(--line); border-radius:var(--radius); padding:20px 20px 16px; box-shadow:0 10px 28px rgba(14,59,54,.08); margin-top:28px; max-width:540px; }
+  .hero-sim label{ display:block; font-weight:700; font-size:15.5px; color:var(--deep); margin-bottom:10px; }
+  .hero-sim-row{ display:grid; grid-template-columns:1.3fr 1fr; gap:10px; }
+  .hero-sim-row input, .hero-sim-row select{ width:100%; min-width:0; font:inherit; font-size:17px; padding:13px 14px; border:1.5px solid var(--line); border-radius:var(--radius-sm); background:var(--white); color:var(--ink); }
+  .hero-sim-row input:focus, .hero-sim-row select:focus{ outline:none; border-color:var(--deep); box-shadow:0 0 0 3px rgba(14,59,54,.12); }
+  .hero-sim-row .btn{ grid-column:1 / -1; justify-content:center; width:100%; }
+  .hero-sim small{ display:block; color:var(--ink-soft); font-size:13px; margin-top:10px; line-height:1.45; }
+  .hero-sim-err{ color:#B42318; font-size:13.5px; margin-top:6px; min-height:0; }
+  .hero-alt{ margin:14px 0 0; font-size:14.5px; color:var(--ink-soft); }
+  .linklike{ background:none; border:0; padding:0; font:inherit; font-weight:700; color:var(--deep); text-decoration:underline; cursor:pointer; }
+  .linklike:focus-visible{ outline:2px solid var(--sun); outline-offset:2px; }
+  @media (min-width:901px){ .hero{ padding-top:44px; } }
+  @media (max-width:900px){ .hero{ padding:30px 0 48px; } }
+  /* Depois de calcular no celular, o resultado para abaixo do cabeçalho fixo (antes o valor ficava escondido atrás dele) */
+  @media (max-width:900px){ .sim-out{ scroll-margin-top:136px; } }
+
+  /* ===== Página de texto (privacidade) ===== */
+  .legal{ padding:56px 0 72px; }
+  .legal .wrap{ max-width:820px; }
+  .legal h1{ font-size:clamp(28px,4vw,40px); margin-bottom:10px; }
+  .legal .updated{ color:var(--ink-soft); font-size:14px; margin:0 0 28px; }
+  .legal h2{ font-size:21px; margin:34px 0 10px; }
+  .legal p, .legal li{ font-size:16.5px; line-height:1.7; color:var(--ink); max-width:none; }
+  .legal ul{ padding-left:22px; margin:0 0 1em; }
+  .legal li{ margin-bottom:6px; }
+  .legal a{ color:var(--deep); font-weight:700; text-decoration:underline; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="logo"><span class="dot"></span><span>Eduardo Souza<span class="role">Consultor de Energia e Sustentabilidade</span></span></div>
+    <div class="header-actions">
+      <a class="btn btn-primary" href="/">Voltar ao site</a>
+    </div>
+  </div>
+</header>
+
+<main class="legal">
+  <div class="wrap">
+    <h1>Política de Privacidade</h1>
+    <p class="updated">Última atualização: 9 de novembro de 2026</p>
+
+    <p>Esta página explica, de forma simples, como o site eduardosouzaenergia.com.br trata os seus dados pessoais, de acordo com a Lei Geral de Proteção de Dados (LGPD, Lei nº 13.709/2018).</p>
+
+    <h2>1. Quem é o responsável</h2>
+    <p>O responsável pelo tratamento dos seus dados é Eduardo Souza, consultor de energia e sustentabilidade. Para falar sobre privacidade, use o WhatsApp (51) 99733-2278.</p>
+
+    <h2>2. Quais dados eu coleto</h2>
+    <p><strong>Dados que você informa:</strong></p>
+    <ul>
+  <li>nome, número de WhatsApp e cidade e estado, quando você envia o cadastro;</li>
+  <li>o valor da conta de luz (ou o consumo em kWh) e a concessionária escolhida, quando você usa o simulador;</li>
+  <li>as informações que você enviar por WhatsApp quando conversar comigo.</li>
+</ul>
+    <p><strong>Dados de navegação:</strong> páginas visitadas, de onde você veio (por exemplo, Instagram ou Google, por meio de parâmetros de campanha no endereço), tipo de dispositivo e de navegador, localização aproximada e a forma como você usa o site. Eles são coletados automaticamente por cookies e tecnologias semelhantes.</p>
+
+    <h2>3. Para que eu uso os dados</h2>
+    <ul>
+  <li>entrar em contato com você e responder ao seu pedido de simulação ou de proposta;</li>
+  <li>elaborar a proposta oficial de economia na conta de luz, a partir da sua conta;</li>
+  <li>entender como o site é usado e melhorá-lo;</li>
+  <li>medir o resultado de anúncios e campanhas.</li>
+</ul>
+
+    <h2>4. Por que posso tratar os seus dados (base legal)</h2>
+    <p>Trato os seus dados com base no seu consentimento, quando você preenche e envia o cadastro, e na realização de procedimentos preliminares a um contrato, a pedido seu, como a elaboração da proposta. Para os cookies de estatística e de publicidade, você pode recusar ou apagar a qualquer momento, nas configurações do seu navegador.</p>
+
+    <h2>5. Com quem eu compartilho</h2>
+    <ul>
+  <li><strong>Fornecedoras de energia e parceiros da contratação:</strong> somente quando você decide seguir com a proposta, e na medida necessária para isso;</li>
+  <li><strong>Serviços de tecnologia que fazem o site funcionar:</strong> hospedagem (Netlify), armazenamento do cadastro em banco de dados na nuvem (Google Firebase), estatísticas de uso (Google Analytics), medição de anúncios (Pixel da Meta) e conversas (WhatsApp). Alguns desses serviços têm servidores fora do Brasil.</li>
+</ul>
+    <p>Eu não vendo os seus dados.</p>
+
+    <h2>6. Cookies</h2>
+    <p>O site usa cookies do Google Analytics, para estatísticas de uso, e do Pixel da Meta, para medir anúncios. Você pode bloquear ou apagar cookies nas configurações do seu navegador. Para desativar o Google Analytics, existe o <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener">complemento oficial de desativação do Google</a>. As preferências de anúncios da Meta ficam nas configurações da sua conta no Instagram ou no Facebook.</p>
+
+    <h2>7. Por quanto tempo eu guardo os dados</h2>
+    <p>Guardo os dados pelo tempo necessário para atender ao seu pedido, acompanhar o relacionamento e cumprir obrigações legais. Se você pedir a exclusão, eu excluo, exceto quando a lei exigir que eu mantenha alguma informação.</p>
+
+    <h2>8. Os seus direitos</h2>
+    <p>Pela LGPD, você pode pedir:</p>
+    <ul>
+  <li>a confirmação de que eu trato os seus dados e o acesso a eles;</li>
+  <li>a correção de dados incompletos ou errados;</li>
+  <li>a anonimização, o bloqueio ou a exclusão de dados desnecessários ou tratados fora da lei;</li>
+  <li>a portabilidade dos dados;</li>
+  <li>informações sobre com quem eu compartilho os dados;</li>
+  <li>a retirada do seu consentimento, quando ele for a base do tratamento.</li>
+</ul>
+    <p>Para exercer qualquer um desses direitos, chame no WhatsApp (51) 99733-2278. Respondo o mais rápido possível.</p>
+
+    <h2>9. Segurança</h2>
+    <p>O site usa conexão segura (HTTPS) e o acesso ao cadastro é restrito. Nenhum sistema é totalmente imune a falhas, mas adoto medidas para proteger os seus dados.</p>
+
+    <h2>10. Menores de idade</h2>
+    <p>Este serviço é destinado a maiores de 18 anos.</p>
+
+    <h2>11. Mudanças nesta política</h2>
+    <p>Posso atualizar esta política quando necessário. A data da última atualização aparece no início da página.</p>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="logo"><span class="dot"></span><span>Eduardo Souza<span class="role">Consultor de Energia e Sustentabilidade</span></span></div>
+    <p class="foot-note">Consultoria independente em economia de energia. <a href="/" style="color:var(--deep); font-weight:700;">Página inicial</a> · <a href="/empresas/" style="color:var(--deep); font-weight:700;">Para empresas</a></p>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -439,6 +439,10 @@ src="https://www.facebook.com/tr?id=1031571483232585&ev=PageView&noscript=1"
   .vantagens-3{ grid-template-columns:repeat(3,1fr); }
   @media (max-width:900px){ .vantagens-3{ grid-template-columns:1fr; } }
   .depoimentos-1{ grid-template-columns:1fr; max-width:680px; }
+
+  /* ===== Avisos de privacidade ===== */
+  .form-consent{ font-size:12.5px; color:var(--ink-soft); margin:12px 0 0; line-height:1.45; }
+  .form-consent a, .sim-cap .ok a{ color:var(--deep); font-weight:700; text-decoration:underline; }
 </style>
 </head>
 <body>
@@ -682,7 +686,7 @@ src="https://www.facebook.com/tr?id=1031571483232585&ev=PageView&noscript=1"
 <footer>
   <div class="wrap">
     <div class="logo"><span class="dot"></span><span>Eduardo Souza<span class="role">Consultor de Energia e Sustentabilidade</span></span></div>
-    <p class="foot-note">Consultoria independente em economia de energia. Atendimento em todo o Rio Grande do Sul, com foco nas cidades atendidas pela RGE. Para residências, veja a <a href="/" style="color:var(--deep); font-weight:700;">página inicial</a>. Seus dados são usados apenas para contato sobre este serviço. <a href="https://instagram.com/eduardosouzaenergia" target="_blank" rel="noopener" style="color:var(--deep); font-weight:700;">@eduardosouzaenergia</a></p>
+    <p class="foot-note">Consultoria independente em economia de energia. Atendimento em todo o Rio Grande do Sul, com foco nas cidades atendidas pela RGE. Para residências, veja a <a href="/" style="color:var(--deep); font-weight:700;">página inicial</a>. Veja também a <a href="/privacidade/" style="color:var(--deep); font-weight:700;">Política de Privacidade</a>. <a href="https://instagram.com/eduardosouzaenergia" target="_blank" rel="noopener" style="color:var(--deep); font-weight:700;">@eduardosouzaenergia</a></p>
   </div>
 </footer>
 
@@ -715,6 +719,7 @@ src="https://www.facebook.com/tr?id=1031571483232585&ev=PageView&noscript=1"
         <div class="form-actions">
           <button type="submit" class="btn btn-primary" id="submitBtn">Enviar cadastro</button>
         </div>
+        <p class="form-consent">Ao enviar, você concorda com o uso dos seus dados para contato, conforme a <a href="/privacidade/" target="_blank" rel="noopener">Política de Privacidade</a>.</p>
         <div class="form-msg" id="formMsg"></div>
       </form>
     </div>
@@ -901,6 +906,7 @@ var SIM_CONFIG = {
         '<button type="button" class="btn btn-primary" id="capBtn">Quero a proposta</button>' +
         '<div class="err" id="capErr"></div>' +
         '<div class="ok">Sem custo para entrar e sem compromisso.</div>' +
+        '<div class="ok">Ao enviar, você concorda com a <a href="/privacidade/" target="_blank" rel="noopener">Política de Privacidade</a>.</div>' +
       '</div>' +
       '<div class="sim-rows">' + rows + '</div>' +
       '<div class="sim-now">Neste mês a bandeira é <strong>' + atual.nome.toLowerCase() + '</strong>: economia de cerca de <strong>' + brl(ecoAtual) + '</strong>.</div>' +

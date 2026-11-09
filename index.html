@@ -408,6 +408,10 @@ src="https://www.facebook.com/tr?id=1031571483232585&ev=PageView&noscript=1"
   @media (max-width:900px){ .hero{ padding:30px 0 48px; } }
   /* Depois de calcular no celular, o resultado para abaixo do cabeçalho fixo (antes o valor ficava escondido atrás dele) */
   @media (max-width:900px){ .sim-out{ scroll-margin-top:136px; } }
+
+  /* ===== Avisos de privacidade ===== */
+  .form-consent{ font-size:12.5px; color:var(--ink-soft); margin:12px 0 0; line-height:1.45; }
+  .form-consent a, .sim-cap .ok a{ color:var(--deep); font-weight:700; text-decoration:underline; }
 </style>
 </head>
 <body>
@@ -444,7 +448,7 @@ src="https://www.facebook.com/tr?id=1031571483232585&ev=PageView&noscript=1"
         <small id="heroSimHint">Pode ser um valor aproximado. Veja quanto você teria economizado nos últimos 12 meses.</small>
         <div class="hero-sim-err" id="heroSimErr" role="alert"></div>
       </form>
-      <p class="hero-alt">Prefere falar direto? <button type="button" class="linklike" data-open-form>Quero economizar</button></p>
+      <p class="hero-alt">Prefere falar direto? <button type="button" class="linklike" data-open-form>Quero economizar</button> &nbsp;·&nbsp; <a href="/empresas/" class="linklike">É uma empresa? Veja a página para empresas</a></p>
       <p class="sub" style="margin-top:22px;">Você continua com a sua concessionária, do mesmo jeito de sempre. A diferença aparece na cobrança — com um desconto, sem burocracia e com alguém de verdade te acompanhando em cada etapa.</p>
       <div class="trust-row">
         <div class="item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Sem instalação</div>
@@ -648,7 +652,7 @@ src="https://www.facebook.com/tr?id=1031571483232585&ev=PageView&noscript=1"
 <footer>
   <div class="wrap">
     <div class="logo"><span class="dot"></span><span>Eduardo Souza<span class="role">Consultor de Energia e Sustentabilidade</span></span></div>
-    <p class="foot-note">Consultoria independente em economia de energia. Atendimento em todo o Rio Grande do Sul, com foco nas cidades atendidas pela RGE. Seus dados são usados apenas para contato sobre este serviço. <a href="https://instagram.com/eduardosouzaenergia" target="_blank" rel="noopener" style="color:var(--deep); font-weight:700;">@eduardosouzaenergia</a></p>
+    <p class="foot-note">Consultoria independente em economia de energia. Atendimento em todo o Rio Grande do Sul, com foco nas cidades atendidas pela RGE. Para empresas, veja a <a href="/empresas/" style="color:var(--deep); font-weight:700;">página para empresas</a>. Veja também a <a href="/privacidade/" style="color:var(--deep); font-weight:700;">Política de Privacidade</a>. <a href="https://instagram.com/eduardosouzaenergia" target="_blank" rel="noopener" style="color:var(--deep); font-weight:700;">@eduardosouzaenergia</a></p>
   </div>
 </footer>
 
@@ -681,6 +685,7 @@ src="https://www.facebook.com/tr?id=1031571483232585&ev=PageView&noscript=1"
         <div class="form-actions">
           <button type="submit" class="btn btn-primary" id="submitBtn">Enviar cadastro</button>
         </div>
+        <p class="form-consent">Ao enviar, você concorda com o uso dos seus dados para contato, conforme a <a href="/privacidade/" target="_blank" rel="noopener">Política de Privacidade</a>.</p>
         <div class="form-msg" id="formMsg"></div>
       </form>
     </div>
@@ -867,6 +872,7 @@ var SIM_CONFIG = {
         '<button type="button" class="btn btn-primary" id="capBtn">Quero a proposta</button>' +
         '<div class="err" id="capErr"></div>' +
         '<div class="ok">Sem custo para entrar e sem compromisso.</div>' +
+        '<div class="ok">Ao enviar, você concorda com a <a href="/privacidade/" target="_blank" rel="noopener">Política de Privacidade</a>.</div>' +
       '</div>' +
       '<div class="sim-rows">' + rows + '</div>' +
       '<div class="sim-now">Neste mês a bandeira é <strong>' + atual.nome.toLowerCase() + '</strong>: economia de cerca de <strong>' + brl(ecoAtual) + '</strong>.</div>' +
